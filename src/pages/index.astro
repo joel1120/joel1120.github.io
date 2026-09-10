@@ -1,0 +1,292 @@
+---
+const name = "Joel Yap";
+const tagline = "Energy, engineering, AI";
+const footerNote = "yapper.io — v1";
+const links = [
+  { label: "GitHub", url: "https://github.com/joel1120" },
+  { label: "LinkedIn", url: "https://www.linkedin.com/in/jy1120/" },
+  { label: "Email", url: "mailto:joelyap1120@hotmail.com" },
+];
+
+// Meta text is derived directly from each link's own URL (hostname for web
+// links, the address itself for mailto) — no invented copy, just a plain
+// reading of data already provided.
+function metaFor(url) {
+  if (url.startsWith("mailto:")) {
+    return url.slice("mailto:".length);
+  }
+  return new URL(url).hostname.replace(/^www\./, "");
+}
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{name}</title>
+    <meta name="description" content={tagline} />
+    <style>
+      :root {
+        --bg: #f7f2ea;
+        --text: #1b1815;
+        --accent: #c1440e;
+        /* Darkened from the spec's literal #8c8478 (~3.3:1 on --bg, fails
+           WCAG AA) to meet the 4.5:1 body-text threshold while keeping the
+           same warm taupe hue. */
+        --muted: #6b6459;
+        --rule: rgba(140, 132, 120, 0.35);
+
+        --font-heading: Georgia, "Iowan Old Style", "Palatino Linotype",
+          ui-serif, Charter, "Times New Roman", serif;
+        --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui,
+          Helvetica, Arial, sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        background: var(--bg);
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--font-body);
+        font-weight: 400;
+        line-height: 1.65;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .wrap {
+        max-width: 680px;
+        margin: 0 auto;
+        padding: 64px 24px 96px;
+      }
+
+      /* ---------- Hero ---------- */
+      /* Mobile: .wrap's 64px top padding alone sets the offset above the
+         name. Desktop (see media query) hands that job to .hero at 160px
+         instead, so the two never stack. */
+
+      .hero {
+        padding-top: 0;
+      }
+
+      .hero__name {
+        font-family: var(--font-heading);
+        font-weight: 400;
+        font-size: 2.75rem;
+        line-height: 1.05;
+        letter-spacing: -0.01em;
+        margin: 0 0 16px;
+      }
+
+      .hero__tagline {
+        font-family: var(--font-body);
+        font-size: 1.0625rem;
+        line-height: 1.65;
+        color: var(--muted);
+        margin: 0 0 24px;
+      }
+
+      .hero__bio {
+        font-size: 1.0625rem;
+        line-height: 1.65;
+        max-width: 56ch;
+        margin: 0;
+      }
+
+      .hero__bio .highlight {
+        color: var(--accent);
+      }
+
+      /* ---------- Rule ---------- */
+
+      hr.divider {
+        border: none;
+        border-top: 1px solid var(--rule);
+        margin: 96px 0;
+      }
+
+      /* ---------- Links section ---------- */
+
+      .section-head {
+        display: flex;
+        align-items: baseline;
+        gap: 16px;
+        margin: 0 0 40px;
+      }
+
+      .section-number {
+        font-family: var(--font-heading);
+        font-weight: 400;
+        font-size: 1.0625rem;
+        color: var(--muted);
+        flex-shrink: 0;
+      }
+
+      h2.section-title {
+        font-family: var(--font-heading);
+        font-weight: 400;
+        font-size: 1.75rem;
+        line-height: 1.2;
+        margin: 0;
+      }
+
+      .list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .list__row {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 4px 16px;
+        /* Spec spacing scale: 40px padding above/below each row. */
+        padding: 40px 0;
+        border-bottom: 1px solid var(--rule);
+      }
+
+      .list__title {
+        font-size: 1.125rem;
+        font-weight: 500;
+        line-height: 1.4;
+        margin: 0;
+      }
+
+      .list__title a {
+        color: var(--text);
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+      }
+
+      .list__title a:hover {
+        color: var(--accent);
+        border-bottom-color: var(--accent);
+      }
+
+      .list__meta {
+        font-size: 0.875rem;
+        letter-spacing: 0.02em;
+        color: var(--muted);
+      }
+
+      /* ---------- Footer ---------- */
+
+      footer {
+        font-size: 0.75rem;
+        color: var(--muted);
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 4px 8px;
+      }
+
+      footer a {
+        color: var(--muted);
+        text-decoration: underline;
+      }
+
+      footer a:hover {
+        color: var(--accent);
+      }
+
+      .footer__sep {
+        color: var(--rule);
+      }
+
+      /* ---------- Responsive ---------- */
+
+      @media (min-width: 600px) {
+        .wrap {
+          padding-top: 0;
+        }
+
+        .hero {
+          padding-top: 160px;
+        }
+
+        .hero__name {
+          font-size: 4.5rem;
+        }
+
+        .list__row {
+          flex-wrap: nowrap;
+        }
+
+        .list__meta {
+          white-space: nowrap;
+          flex-shrink: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="hero">
+        <h1 class="hero__name">{name}</h1>
+        <p class="hero__tagline">{tagline}</p>
+        <p class="hero__bio">
+          Building <span class="highlight">in public</span> — nothing to show
+          yet. Check back soon.
+        </p>
+      </header>
+
+      <hr class="divider" />
+
+      <section aria-labelledby="links-heading">
+        <div class="section-head">
+          <span class="section-number" aria-hidden="true">01</span>
+          <h2 class="section-title" id="links-heading">Links</h2>
+        </div>
+        <ul class="list">
+          {
+            links.map((link) => (
+              <li class="list__row">
+                <p class="list__title">
+                  <a
+                    href={link.url}
+                    target={link.url.startsWith("http") ? "_blank" : undefined}
+                    rel={link.url.startsWith("http") ? "noopener noreferrer" : undefined}
+                  >
+                    {link.label}
+                  </a>
+                </p>
+                <span class="list__meta">{metaFor(link.url)}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+
+      <hr class="divider" />
+
+      <footer>
+        <span>{footerNote}</span>
+        {
+          links
+            .filter((link) => link.label === "GitHub" || link.label === "Email")
+            .map((link) => (
+              <>
+                <span class="footer__sep" aria-hidden="true">·</span>
+                <a
+                  href={link.url}
+                  target={link.url.startsWith("http") ? "_blank" : undefined}
+                  rel={link.url.startsWith("http") ? "noopener noreferrer" : undefined}
+                >
+                  {link.label}
+                </a>
+              </>
+            ))
+        }
+      </footer>
+    </div>
+  </body>
+</html>
